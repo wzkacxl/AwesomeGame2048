@@ -17,3 +17,31 @@
     -moz-border-radius: $r;
     border-radius: $r	
 }
+
+@mixin transform($t...){
+  -webkit-transform: $t;
+  -moz-transform: $t;
+  -ms-transform: $t;
+  transform: $t;
+}
+
+@mixin transition($t...){
+  -webkit-transition: $t;
+  -moz-transition: $t;
+  transition: $t;
+}
+
+@function pow($base, $exponent){
+	$value: $base;
+	if $exponent > 1{
+		@for $i from 2 through $exponent{
+			$value: $value * base;
+		}
+	}
+	if $exponent < 1{
+		@for $i from 0 through -$exponent{
+			$value: $value / $base;
+		}
+	}
+	return $value;
+}
