@@ -1,0 +1,19 @@
+@mixin clearfix {
+	&:after {
+		content:"";
+		display:block;
+		clear:both;
+	}
+}
+
+@mixin sizing($s){
+	-webkit-box-sizing: $s;
+    -moz-box-sizing: $s;
+    box-sizing: $s;
+}
+
+@mixin radius($r){
+	-webkit-border-radius: $r;
+    -moz-border-radius: $r;
+    border-radius: $r	
+}

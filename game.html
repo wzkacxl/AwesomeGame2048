@@ -2,12 +2,13 @@
 <html>
 <head>
 	<title>2048</title>
+	<link rel="stylesheet" href="style/main.css">
 </head>
 <body>
 
 <div class="container">
 	<div class="header">
-		<title>2048</title>
+		<h1 class="title">2048</h1>
 		<div class="score-container">0</div>
 		<div class="best-container">0</div>
 		<div><a class="btn-restart">New Game</a></div>
@@ -15,6 +16,13 @@
 </div>
 
 	<div class="game-container">
+		<div class="game-message">
+			<p>Game over!</p>
+			<div>
+				<a class="retry-button">Try again</a>
+			</div>
+		</div>
+
 		<div class="grid-container">
 			<div class="grid-row">
 				<div class="grid-cell"></div>
@@ -40,6 +48,10 @@
 				<div class="grid-cell"></div>
 				<div class="grid-cell"></div>
 			</div>
+		</div>
+
+		<div class="tile-container">
+			
 		</div>
 	</div>
 
