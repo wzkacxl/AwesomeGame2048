@@ -250,5 +250,28 @@ h1.title{
     		}
     	}
     	$exponent: $exponent + 1;
+    }
+
+    $.tile-super .tile-inner {
+    	color: $bright-text-color;
+    	background: mix(#333, $tile-gold-color,%95);
+
+    	font-size:30px;
     }                 
+}
+
+@include keyframes(appear){
+	0% {
+		opacity: 0;
+		@include transform(scale(0));
+	}
+
+	100% {
+		opacity: 1;
+		@include transform(scale(1));
+	}
+}
+
+.tile-new .tile-inner {
+	
 }
