@@ -31,7 +31,7 @@ html,body {
 }
 
 @mixin button {
-	//display: inline-block;
+	display: inline-block;
   	background: darken($game-container-background, 20%);
   	padding: 10px 20px;
   	text-decoration: none;
@@ -63,19 +63,53 @@ h1.title{
 /*
 @include keyframes(move-up)
 */
-
-.score-container{
-	
+.score{
+	//float: right;
+	text-align: right;
 }
+
 .score-container, .best-container{
-	float:right;
-	text-align:right;
-	display:inline-block;
+	$height: 25px;
 
-	position:relative;
+	display: inline-block;
+	position: relative;
+	height: $height;
+	font-size:$height;
+	line-height: 2 * $height;
+	font-weight: bold;
+	border-radius: 3px;
+	padding: 15px 25px;
+
+	text-align: center;
+	color:#fff;
 	background: $game-container-background;
+	
+	&:before{
+		position: absolute;
+		width: 100%;
+		top: 8px;
+		left: 0;
+		font-size: 13px;
+		line-height: 13px;
+		text-align: center;
+		color: $tile-color;
+
+	}
 }
 
+.score-container:before {
+  content: "SCORE";
+}
+
+.best-container:before {
+  content: "BEST"
+}
+
+.btn-restart{
+	@include button;
+	float:right;
+	display:block;
+}
 
 //game field
 @mixin game-field{
@@ -181,7 +215,7 @@ h1.title{
 .tile {
 	position: absolute;
 
-	@include transition(transform $transition-speed ease-in-out)
+	@include transition($transition-speed ease-in-out);
 
 	.tile-inner {
 		@include radius($tile-border-radius);
@@ -218,7 +252,7 @@ h1.title{
     	&.title-#{$power} .tile-inner{
     		//background color
     		$gold-percent: ($exponent - 1) * 10;
-    		$mixed-background: mix($tile-gold-color, $tile-color, $gold-percent)
+    		$mixed-background: mix($tile-gold-color, $tile-color, $gold-percent);
 
     		$nth-color: nth($special-colors, $exponent);
 
@@ -230,7 +264,7 @@ h1.title{
     		}
 
 
-    		if $bright-color{
+    		@if $bright-color{
     			color: $bright-text-color;
     		}
 
@@ -252,9 +286,9 @@ h1.title{
     	$exponent: $exponent + 1;
     }
 
-    $.tile-super .tile-inner {
+    &.tile-super .tile-inner {
     	color: $bright-text-color;
-    	background: mix(#333, $tile-gold-color,%95);
+    	background: mix(#333, $tile-gold-color,95%);
 
     	font-size:30px;
     }                 
@@ -273,5 +307,27 @@ h1.title{
 }
 
 .tile-new .tile-inner {
-	
+	@include animation(appear 200ms ease 100);
+	@include animation-fill-mode(backwords);
 }
+
+@include keyframes(pop){
+	0%{
+		@include transform(scale(0));
+	}
+
+	50%{
+		@include transform(scale(1.2));
+	}
+
+	100%{
+		@include transform(scale(1));
+	}
+}
+
+.tile-merged .tile-inner{
+	z-index: 20;
+	@include animation(pop 200ms ease 100ms);
+	@include animation-fill-mode(backwords);
+}
+

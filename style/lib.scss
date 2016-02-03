@@ -33,17 +33,17 @@
 
 @function pow($base, $exponent){
 	$value: $base;
-	if $exponent > 1{
+	@if $exponent > 1{
 		@for $i from 2 through $exponent{
-			$value: $value * base;
+			$value: $value * $base;
 		}
 	}
-	if $exponent < 1{
+	@if $exponent < 1{
 		@for $i from 0 through -$exponent{
 			$value: $value / $base;
 		}
 	}
-	return $value;
+	@return $value;
 }
 
 @mixin keyframes($animation-name) {
@@ -56,4 +56,16 @@
 	@keyframes $animation-name {
 		@content;
 	}
+}
+
+@mixin animation($a...){
+	-webkit-animation: $a;
+	-moz-animation: $a;
+	animation: $a;
+}
+
+@mixin animation-fill-mode($afm...){
+	-webkit-animation-fill-mode: $afm;
+	-moz-animation-fill-mode: $afm;
+	animation-fill-mode: $afm;
 }
