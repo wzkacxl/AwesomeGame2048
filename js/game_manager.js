@@ -1,8 +1,8 @@
 function GameManager(size, InputManager, Actuator, StorageManager){
 	this.size = size;
-	this.inputManager = InputManager;
-	this.actuator = Actuator;
-	this.storageManager = StorageManager;
+	this.inputManager = new InputManager;
+	this.actuator = new Actuator;
+	this.storageManager = new StorageManager;
 
 	this.startTiles = 2;
 

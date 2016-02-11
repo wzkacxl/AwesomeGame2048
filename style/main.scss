@@ -229,7 +229,7 @@ h1.title{
 				&.tile-position-#{$x}-#{$y} {
 					$xPos: ($tile-size + $grid-spacing)*($x - 1);
 					$yPos: ($tile-size + $grid-spacing)*($y - 1);
-					@include transform($xPos, $yPos);
+					@include transform(translate($xPos, $yPos));
 				}
 			}
 		}
