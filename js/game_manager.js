@@ -16,6 +16,9 @@ GameManager.prototype.setup = function() {
 	this.over = false;
 
 	this.addStartTiles();
+
+
+	this.actuate();
 }
 
 GameManager.prototype.addStartTiles = function(){
@@ -32,3 +35,7 @@ GameManager.prototype.addRandomTile = function(){
 		this.grid.insertTile(tile);
 	}
 };
+
+GameManager.prototype.actuate = function(){
+	this.actuator.actuate(this.grid);
+}

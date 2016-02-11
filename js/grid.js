@@ -1,7 +1,7 @@
 function Grid(size, previousState) {
 	this.size = size;
 	//this.cells = previousState ? 
-	this.empty();
+	this.cells = this.empty();
 };
 
 Grid.prototype.empty = function() {
@@ -24,7 +24,7 @@ Grid.prototype.availableCells = function() {
 
 	this.eachCell(function(i, j, tile){
 		if (!tile){
-			cells.push({x: x, y: y});
+			cells.push({x: i, y: j});
 		}
 	});
 	return cells;
@@ -46,6 +46,6 @@ Grid.prototype.randomAvailableCell = function() {
 	}
 }
 
-Grid.prototype.insertTile(tile){
+Grid.prototype.insertTile = function(tile){
 	this.cells[tile.x][tile.y] = tile;
 }
