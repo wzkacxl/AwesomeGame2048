@@ -46,17 +46,18 @@
 	@return $value;
 }
 
-@mixin keyframes($animation-name) {
-	@-webkit-keyframes $animation-name {
-		@content;
-	}
-	@-moz-keyframes $animation-name {
-		@content;
-	}
-	@keyframes $animation-name {
-		@content;
-	}
+@mixin keyframes($a) {
+  @-webkit-keyframes #{$a} {
+    @content;
+  }
+  @-moz-keyframes #{$a} {
+    @content;
+  }
+  @keyframes #{$a} {
+    @content;
+  }
 }
+
 
 @mixin animation($a...){
 	-webkit-animation: $a;

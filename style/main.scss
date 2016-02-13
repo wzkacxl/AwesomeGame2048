@@ -334,7 +334,7 @@ h1.title{
 }
 
 .tile-new .tile-inner {
-	@include animation(appear 200ms ease 100);
+	@include animation(appear 200ms ease 100ms);
 	@include animation-fill-mode(backwords);
 }
 
@@ -357,4 +357,3 @@ h1.title{
 	@include animation(pop 200ms ease 100ms);
 	@include animation-fill-mode(backwords);
 }
-
