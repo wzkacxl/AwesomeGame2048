@@ -42,6 +42,23 @@ HTMLActuator.prototype.addTile = function(tile){
 	inner.textContent = tile.value;
 
 	//merged
+	if (tile.previousPostion) {
+		window.requestAnimationFrame(function(){
+			classes[2] = self.positionClass({x: tile.x, y: tile.y});
+			self.applyClasses(wrapper, classes);
+		});
+	}else if(tile.mergedFrom) {
+		classes.push("tile-merged");
+		this.applyClasses(wrapper, classes);
+
+		//合并的两个元素的运行过程
+		tile.mergedFrom.forEach(function(cell){
+			self.addTile(cell);
+		});
+	}else{
+		classes.push("tile-new");
+		this.applyClasses(wrapper, classes);
+	}
 
 	wrapper.appendChild(inner);
 

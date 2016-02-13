@@ -15,6 +15,10 @@ Grid.prototype.empty = function() {
 	return cells;
 };
 
+Grid.prototype.cellAvailable = function(cell) {
+	return !this.cellContent(cell);
+}
+
 Grid.prototype.cellsAvailable = function() {
 	return !!this.availableCells().length;
 };

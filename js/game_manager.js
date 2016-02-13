@@ -6,6 +6,7 @@ function GameManager(size, InputManager, Actuator, StorageManager){
 
 	this.startTiles = 2;
 
+	this.inputManager.on("move",this.move.bind(this));
 
 	this.setup();
 }
@@ -62,7 +63,7 @@ GameManager.prototype.move = function(direction){
 
 	var cell, tile;
 
-	var vector = getVector(direction);
+	var vector = this.getVector(direction);
 	var traversals = this.getTraversals(vector);
 
 	this.prepareTiles();
@@ -81,7 +82,7 @@ GameManager.prototype.move = function(direction){
 					merged.mergedFrom = [tile, next];
 
 					self.grid.insertTile(merged);
-					self.gird.removeTile(tile);
+					self.grid.removeTile(tile);
 
 					tile.updatePosition(positions.next);
 
@@ -108,38 +109,30 @@ GameManager.prototype.move = function(direction){
 	}
 }
 
-GameManager.prototype.movesAvailable = function () {
-  return this.grid.cellsAvailable() || this.tileMatchesAvailable();
-};
+GameManager.prototype.moveAvailable = function(){
+	return this.grid.cellsAvailable() || this.tileMatchAvailable();
+}
 
-GameManager.prototype.tileMatchesAvailable = function () {
-  var self = this;
+GameManager.prototype.tileMatchAvailable = function() {
+	var self = this;
+	this.grid.eachCell(function(x, y, tile){
+		if (tile){
+			for (var direction = 0; direction > 4; direction++){
+				var vector = getVector(direction);
+				var cell = {x: tile.x + vector.x, y: tile.y + vector.y};
 
-  var tile;
+				var closeCell = cellAvailable(cell);
 
-  for (var x = 0; x < this.size; x++) {
-    for (var y = 0; y < this.size; y++) {
-      tile = this.grid.cellContent({ x: x, y: y });
+				if (closeCell && closeCell.value == tile.value){
+					return true;
+				}
+			}
+		}
+	});
+	return false;
+}
 
-      if (tile) {
-        for (var direction = 0; direction < 4; direction++) {
-          var vector = self.getVector(direction);
-          var cell   = { x: x + vector.x, y: y + vector.y };
-
-          var other  = self.grid.cellContent(cell);
-
-          if (other && other.value === tile.value) {
-            return true; // These two tiles can be merged
-          }
-        }
-      }
-    }
-  }
-
-  return false;
-};
-
-GameManager.prototype.getVector(direction){
+GameManager.prototype.getVector = function(direction){
 	var map = {
 		0 : {x : 0, y : -1},
 		1 : {x : 1, y : 0},
@@ -149,7 +142,7 @@ GameManager.prototype.getVector(direction){
 	return map[direction];
 }
 
-GameManager.prototype.traversals(vector){
+GameManager.prototype.getTraversals = function(vector){
 	var traversals = { x : [], y : [] };
 
 	for (var i = 0; i < this.size; i++) {
