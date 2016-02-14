@@ -1,7 +1,7 @@
 function HTMLActuator() {
-	this.tileContainer = document.querySelector(".tile-container");
-	this.scoreContainer = document.querySelector(".score-container");
-	this.bestContainer = document.querySelector(".best-container");
+	this.tileContainer    = document.querySelector(".tile-container");
+	this.scoreContainer   = document.querySelector(".score-container");
+	this.bestContainer    = document.querySelector(".best-container");
 	this.messageContainer = document.querySelector(".message-container");
 
 	this.score = 0;
@@ -23,12 +23,18 @@ HTMLActuator.prototype.actuate = function(grid){
     });
 }
 
+HTMLActuator.prototype.clearContainer = function(container){
+	while(container.firstChild){
+		container.removeChild(container.firstChild);
+	}
+}
+
 HTMLActuator.prototype.addTile = function(tile){
 	var self = this;
 
-	var wrapper = document.createElement("div");
-	var inner = document.createElement("div");
-	var position = { x: tile.x, y: tile.y };
+	var wrapper       = document.createElement("div");
+	var inner 	 	  = document.createElement("div");
+	var position      = tile.previousPosition || { x: tile.x, y: tile.y };
 	var positionClass = this.positionClass(position);
 
 	//classList???
@@ -42,7 +48,7 @@ HTMLActuator.prototype.addTile = function(tile){
 	inner.textContent = tile.value;
 
 	//merged
-	if (tile.previousPostion) {
+	if (tile.previousPosition) {
 		window.requestAnimationFrame(function(){
 			classes[2] = self.positionClass({x: tile.x, y: tile.y});
 			self.applyClasses(wrapper, classes);
@@ -52,8 +58,8 @@ HTMLActuator.prototype.addTile = function(tile){
 		this.applyClasses(wrapper, classes);
 
 		//合并的两个元素的运行过程
-		tile.mergedFrom.forEach(function(cell){
-			self.addTile(cell);
+		tile.mergedFrom.forEach(function(merged){
+			self.addTile(merged);
 		});
 	}else{
 		classes.push("tile-new");
@@ -76,10 +82,4 @@ HTMLActuator.prototype.positionClass = function(position){
 
 HTMLActuator.prototype.applyClasses = function(elem, classes){
 	elem.setAttribute("class", classes.join(" "));
-}
-
-HTMLActuator.prototype.clearContainer = function(container){
-	while(container.firstChild){
-		container.removeChild(container.firstChild);
-	}
 }

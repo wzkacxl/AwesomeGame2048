@@ -65,6 +65,7 @@ GameManager.prototype.move = function(direction){
 
 	var vector = this.getVector(direction);
 	var traversals = this.getTraversals(vector);
+	moved = false;
 
 	this.prepareTiles();
 

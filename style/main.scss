@@ -219,16 +219,16 @@ h1.title{
 
 	.tile {
 		&, .tile-inner {
-			width: $tile-size;
-			height: $tile-size;
-			line-height: $tile-size;
+			width: ceil($tile-size);
+			height: ceil($tile-size);
+			line-height: ceil($tile-size);
 		}
 		//tile position
 		@for $x from 1 through $grid-row-cells {
 			@for $y from 1 through $grid-row-cells {
 				&.tile-position-#{$x}-#{$y} {
-					$xPos: ($tile-size + $grid-spacing)*($x - 1);
-					$yPos: ($tile-size + $grid-spacing)*($y - 1);
+					$xPos: floor(($tile-size + $grid-spacing)*($x - 1));
+					$yPos: floor(($tile-size + $grid-spacing)*($y - 1));
 					@include transform(translate($xPos, $yPos));
 				}
 			}
@@ -335,7 +335,7 @@ h1.title{
 
 .tile-new .tile-inner {
 	@include animation(appear 200ms ease 100ms);
-	@include animation-fill-mode(backwords);
+	@include animation-fill-mode(backwards);
 }
 
 @include keyframes(pop){
@@ -355,5 +355,5 @@ h1.title{
 .tile-merged .tile-inner{
 	z-index: 20;
 	@include animation(pop 200ms ease 100ms);
-	@include animation-fill-mode(backwords);
+	@include animation-fill-mode(backwards);
 }
