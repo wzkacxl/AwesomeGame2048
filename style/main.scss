@@ -34,19 +34,18 @@ html,body {
 @mixin button {
 	display: inline-block;
   	background: darken($game-container-background, 20%);
-  	padding: 10px 20px;
+  	padding: 0px 20px;
   	text-decoration: none;
   	color: $bright-text-color;
   	height: 40px;
   	line-height: 42px;
   	@include radius($tile-border-radius);
+  	cursor: pointer;
 }
 .container{
 	width: $field-width;
 	margin: 0 auto;
 }
-
-
 
 
 .header{
@@ -180,6 +179,10 @@ h1.title{
       		a{
       			@include button;
       		}
+
+      		&.game-over{
+      			display: block;
+      		}
      		
 		}
 	}
@@ -220,7 +223,7 @@ h1.title{
 	  z-index: 2;
 	}
 
-	
+
 	.tile {
 		&, .tile-inner {
 			width: ceil($tile-size);

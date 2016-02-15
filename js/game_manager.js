@@ -7,6 +7,7 @@ function GameManager(size, InputManager, Actuator, StorageManager){
 	this.startTiles = 2;
 
 	this.inputManager.on("move",this.move.bind(this));
+	this.inputManager.on("restart",this.restart.bind(this));
 
 	this.setup();
 }
@@ -20,6 +21,10 @@ GameManager.prototype.setup = function() {
 
 
 	this.actuate();
+}
+
+GameManager.prototype.restart = function() {
+	this.setup();
 }
 
 GameManager.prototype.addStartTiles = function(){
@@ -38,7 +43,7 @@ GameManager.prototype.addRandomTile = function(){
 };
 
 GameManager.prototype.actuate = function(){
-	this.actuator.actuate(this.grid);
+	this.actuator.actuate(this.grid, {score: this.score, over: this.over});
 }
 
 GameManager.prototype.prepareTiles = function(){
@@ -87,7 +92,7 @@ GameManager.prototype.move = function(direction){
 
 					tile.updatePosition(positions.next);
 
-					//self.score += merged.value;
+					self.score += merged.value;
 				}else{
 					self.moveTile(tile, positions.farthest);
 				}

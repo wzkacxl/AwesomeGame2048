@@ -2,12 +2,12 @@ function HTMLActuator() {
 	this.tileContainer    = document.querySelector(".tile-container");
 	this.scoreContainer   = document.querySelector(".score-container");
 	this.bestContainer    = document.querySelector(".best-container");
-	this.messageContainer = document.querySelector(".message-container");
+	this.messageContainer = document.querySelector(".game-message");
 
 	this.score = 0;
 }
 
-HTMLActuator.prototype.actuate = function(grid){
+HTMLActuator.prototype.actuate = function(grid, metadata){
 	var self = this;
 
   	window.requestAnimationFrame(function () {
@@ -20,6 +20,11 @@ HTMLActuator.prototype.actuate = function(grid){
         }
       });
     });
+
+    self.updateScore(metadata.score);
+    if (metadata.over == true){
+    	self.messageContainer.classList.add("game-over");
+    }
     });
 }
 
@@ -27,6 +32,10 @@ HTMLActuator.prototype.clearContainer = function(container){
 	while(container.firstChild){
 		container.removeChild(container.firstChild);
 	}
+}
+
+HTMLActuator.prototype.updateScore = function(score) {
+	this.scoreContainer.textContent = score;
 }
 
 HTMLActuator.prototype.addTile = function(tile){

@@ -57,7 +57,7 @@ InputManager.prototype.listen = function(){
 
 InputManager.prototype.restart = function(event){
 	event.preventDefault();
-	this.emit(restart);
+	this.emit("restart");
 }
 
 InputManager.prototype.bindButtonPress = function(selector, fn){

@@ -96,7 +96,7 @@ h1.title {
 .btn-restart {
   display: inline-block;
   background: #8f7a66;
-  padding: 10px 20px;
+  padding: 0px 20px;
   text-decoration: none;
   color: #f9f6f2;
   height: 40px;
@@ -104,6 +104,7 @@ h1.title {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
+  cursor: pointer;
   float: right;
   display: block;
   -webkit-box-sizing: border-box;
@@ -145,14 +146,17 @@ h1.title {
     .game-container .game-message a {
       display: inline-block;
       background: #8f7a66;
-      padding: 10px 20px;
+      padding: 0px 20px;
       text-decoration: none;
       color: #f9f6f2;
       height: 40px;
       line-height: 42px;
       -webkit-border-radius: 3px;
       -moz-border-radius: 3px;
-      border-radius: 3px; }
+      border-radius: 3px;
+      cursor: pointer; }
+    .game-container .game-message.game-over {
+      display: block; }
 
 .grid-container {
   position: absolute;
