@@ -6,8 +6,6 @@ $grid-row-cells: 4;
 $tile-size: ($field-width - $grid-spacing * ($grid-row-cells + 1) ) / $grid-row-cells;
 $tile-border-radius: 3px;
 
-//$moblie-threshold:$field-width + 20px;
-
 $text-color: #776E65;
 $bright-text-color: #f9f6f2;
 
@@ -217,6 +215,12 @@ h1.title{
 		}
 	}
 
+	.tile-container {
+	  position: absolute;
+	  z-index: 2;
+	}
+
+	
 	.tile {
 		&, .tile-inner {
 			width: ceil($tile-size);
@@ -276,7 +280,7 @@ h1.title{
     @while $exponent <= $limit{
     	$power: pow($base, $exponent);
 
-    	&.title-#{$power} .tile-inner{
+    	&.tile-#{$power} .tile-inner{
     		//background color
     		$gold-percent: ($exponent - 1) * 10;
     		$mixed-background: mix($tile-gold-color, $tile-color, $gold-percent);
@@ -287,7 +291,7 @@ h1.title{
     		$bright-color: nth($nth-color, 2);
 
     		@if $special-background {
-    			$mixed-background: mix($special-background, $mixed-background,65%);
+    			$mixed-background: mix($special-background, $mixed-background,55%);
     		}
 
 
