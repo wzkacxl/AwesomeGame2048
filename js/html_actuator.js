@@ -22,6 +22,8 @@ HTMLActuator.prototype.actuate = function(grid, metadata){
     });
 
     self.updateScore(metadata.score);
+    self.updateBestScore(metadata.bestScore);
+
     if (metadata.over == true){
     	self.messageContainer.classList.add("game-over");
     }
@@ -37,6 +39,10 @@ HTMLActuator.prototype.clearContainer = function(container){
 HTMLActuator.prototype.updateScore = function(score) {
 	this.scoreContainer.textContent = score;
 }
+
+HTMLActuator.prototype.updateBestScore = function (bestScore) {
+  this.bestContainer.textContent = bestScore;
+};
 
 HTMLActuator.prototype.clearMessage = function() {
 	this.messageContainer.classList.remove("game-over");

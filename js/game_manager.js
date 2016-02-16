@@ -13,17 +13,26 @@ function GameManager(size, InputManager, Actuator, StorageManager){
 }
 
 GameManager.prototype.setup = function() {
-	this.grid = new Grid(this.size);
-	this.score = 0;
-	this.over = false;
+	var previousState = this.storageManager.getGameState();
 
-	this.addStartTiles();
+	if (previousState){
+		this.grid = new Grid(previousState.grid.size,
+							 previousState.grid.cells);
+		this.score = previousState.score;
+		this.over = previousState.over;
 
-
+	}else{
+		this.grid = new Grid(this.size);
+		this.score = 0;
+		this.over = false;
+		this.addStartTiles();	
+	}
+	
 	this.actuate();
 }
 
 GameManager.prototype.restart = function() {
+	this.storageManager.clearGameState();
 	this.actuator.clearMessage();
 	this.setup();
 }
@@ -43,8 +52,26 @@ GameManager.prototype.addRandomTile = function(){
 	}
 };
 
+GameManager.prototype.serialize = function () {
+	return {
+		gird: this.grid.serialize(),
+		score: this.score
+	}
+}
+
 GameManager.prototype.actuate = function(){
-	this.actuator.actuate(this.grid, {score: this.score, over: this.over});
+	if (this.storageManager.getBestScore() < this.score){
+		this.storageManager.setBestScore(this.score);
+	}
+	if (this.over) {
+		this.storageManager.clearGameState();
+	} else {
+		this.storageManager.setGameState(this.serialize());
+	}
+
+	this.actuator.actuate(this.grid, {score: this.score, 
+									  over: this.over, 
+									  bestScore: this.storageManager.getBestScore()});
 }
 
 GameManager.prototype.prepareTiles = function(){
