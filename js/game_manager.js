@@ -24,6 +24,7 @@ GameManager.prototype.setup = function() {
 }
 
 GameManager.prototype.restart = function() {
+	this.actuator.clearMessage();
 	this.setup();
 }
 
@@ -119,24 +120,32 @@ GameManager.prototype.moveAvailable = function(){
 	return this.grid.cellsAvailable() || this.tileMatchAvailable();
 }
 
-GameManager.prototype.tileMatchAvailable = function() {
-	var self = this;
-	this.grid.eachCell(function(x, y, tile){
-		if (tile){
-			for (var direction = 0; direction > 4; direction++){
-				var vector = getVector(direction);
-				var cell = {x: tile.x + vector.x, y: tile.y + vector.y};
+GameManager.prototype.tileMatchAvailable = function () {
+  var self = this;
 
-				var closeCell = cellAvailable(cell);
+  var tile;
 
-				if (closeCell && closeCell.value == tile.value){
-					return true;
-				}
-			}
-		}
-	});
-	return false;
-}
+  for (var x = 0; x < this.size; x++) {
+    for (var y = 0; y < this.size; y++) {
+      tile = this.grid.cellContent({ x: x, y: y });
+
+      if (tile) {
+        for (var direction = 0; direction < 4; direction++) {
+          var vector = self.getVector(direction);
+          var cell   = { x: x + vector.x, y: y + vector.y };
+
+          var other  = self.grid.cellContent(cell);
+
+          if (other && other.value === tile.value) {
+            return true; // These two tiles can be merged
+          }
+        }
+      }
+    }
+  }
+
+  return false;
+};
 
 GameManager.prototype.getVector = function(direction){
 	var map = {

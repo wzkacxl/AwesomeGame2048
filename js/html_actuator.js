@@ -38,6 +38,10 @@ HTMLActuator.prototype.updateScore = function(score) {
 	this.scoreContainer.textContent = score;
 }
 
+HTMLActuator.prototype.clearMessage = function() {
+	this.messageContainer.classList.remove("game-over");
+}
+
 HTMLActuator.prototype.addTile = function(tile){
 	var self = this;
 
