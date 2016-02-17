@@ -54,7 +54,7 @@ GameManager.prototype.addRandomTile = function(){
 
 GameManager.prototype.serialize = function () {
 	return {
-		gird: this.grid.serialize(),
+		grid: this.grid.serialize(),
 		score: this.score
 	}
 }
